@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#07111f" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
   <title>Smart Power Control Box</title>
 
   <style>
@@ -42,32 +42,34 @@
     .wrap {
       width:min(1200px,calc(100% - 28px));
       margin:auto;
-      padding:24px 0 40px;
+      padding:18px 0 35px;
     }
+
+    /* ================= HEADER ================= */
 
     .top {
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:18px;
-      margin-bottom:20px;
+      margin-bottom:16px;
     }
 
     .brand {
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
     }
 
     .logo {
-      width:52px;
-      height:52px;
-      border-radius:16px;
+      width:48px;
+      height:48px;
+      border-radius:14px;
       display:grid;
       place-items:center;
-      font-size:27px;
+      font-size:25px;
       background:linear-gradient(135deg,#2377d2,#28d4a0);
-      box-shadow:0 16px 35px rgba(37,135,221,.28);
+      box-shadow:0 12px 30px rgba(37,135,221,.25);
     }
 
     h1,h2,h3,p {
@@ -75,102 +77,130 @@
     }
 
     h1 {
-      font-size:clamp(24px,4vw,35px);
+      font-size:clamp(22px,3vw,32px);
     }
 
     h2 {
-      font-size:19px;
+      font-size:18px;
     }
 
     .muted {
       color:var(--muted);
-      font-size:13px;
-      margin-top:5px;
+      font-size:12px;
+      margin-top:4px;
       line-height:1.5;
     }
+
+    /* ================= STATUS ================= */
 
     .status {
       display:flex;
       align-items:center;
-      gap:9px;
-      padding:10px 14px;
+      gap:8px;
+      padding:8px 12px;
       border:1px solid var(--line);
       border-radius:999px;
       background:#0d1d30;
       white-space:nowrap;
+      font-size:12px;
     }
 
     .dot {
-      width:10px;
-      height:10px;
+      width:9px;
+      height:9px;
       border-radius:50%;
       background:var(--red);
-      box-shadow:0 0 0 6px rgba(255,96,117,.10);
+      box-shadow:0 0 0 5px rgba(255,96,117,.10);
     }
 
     .dot.online {
       background:var(--green);
-      box-shadow:0 0 0 6px rgba(38,211,145,.10);
+      box-shadow:0 0 0 5px rgba(38,211,145,.10);
     }
+
+    /* ================= GRID ================= */
 
     .grid {
       display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:17px;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:12px;
     }
 
     .card {
       border:1px solid var(--line);
-      border-radius:21px;
-      padding:19px;
+      border-radius:17px;
+      padding:14px;
       background:linear-gradient(180deg,var(--panel),var(--panel2));
-      box-shadow:0 22px 55px rgba(0,0,0,.34);
+      box-shadow:0 16px 40px rgba(0,0,0,.28);
     }
 
     .full {
-      grid-column:span 12;
+      grid-column:1 / -1;
     }
+
+    /* ================= METRICS ================= */
 
     .metric {
-      grid-column:span 3;
+      grid-column:span 1;
+      min-width:0;
+      padding:13px;
     }
 
-    .channels {
-      grid-column:span 8;
+    .metric-name {
+      color:var(--muted);
+      font-size:11px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    .schedule {
-      grid-column:span 4;
+    .metric-value {
+      font-size:clamp(23px,2.7vw,34px);
+      font-weight:800;
+      margin-top:7px;
+      letter-spacing:-1px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    .head {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:15px;
+    .unit {
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:0;
     }
+
+    .foot {
+      color:var(--muted);
+      font-size:9px;
+      margin-top:6px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* ================= CONNECTION ================= */
 
     .config {
       display:grid;
-      grid-template-columns:1.4fr 1fr auto auto;
-      gap:11px;
-      margin-top:15px;
+      grid-template-columns:1.5fr 1fr auto auto;
+      gap:9px;
+      margin-top:12px;
     }
 
     .field label {
       display:block;
       color:var(--muted);
-      font-size:12px;
-      margin-bottom:7px;
+      font-size:11px;
+      margin-bottom:5px;
     }
 
     input,select {
       width:100%;
-      height:44px;
+      height:40px;
       border:1px solid var(--line);
-      border-radius:11px;
-      padding:0 12px;
+      border-radius:9px;
+      padding:0 10px;
       color:var(--text);
       background:#071421;
       outline:none;
@@ -178,18 +208,19 @@
 
     input:focus,select:focus {
       border-color:var(--blue);
-      box-shadow:0 0 0 4px rgba(61,161,255,.12);
+      box-shadow:0 0 0 3px rgba(61,161,255,.12);
     }
 
     button {
-      height:44px;
+      height:40px;
       border:0;
-      border-radius:11px;
-      padding:0 16px;
+      border-radius:9px;
+      padding:0 14px;
       color:#fff;
       font-weight:700;
       cursor:pointer;
       background:#275d96;
+      font-size:12px;
     }
 
     button:disabled {
@@ -214,60 +245,58 @@
       background:linear-gradient(135deg,#ab3048,#ef536b);
     }
 
-    .metric-name {
-      color:var(--muted);
-      font-size:13px;
+    /* ================= CHANNELS ================= */
+
+    .channels {
+      grid-column:span 3;
     }
 
-    .metric-value {
-      font-size:clamp(31px,5vw,44px);
-      font-weight:800;
-      margin-top:12px;
-      letter-spacing:-1px;
+    .schedule {
+      grid-column:span 2;
     }
 
-    .unit {
-      font-size:15px;
-      color:var(--muted);
-    }
-
-    .foot {
-      color:var(--muted);
-      font-size:12px;
-      margin-top:10px;
+    .head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
     }
 
     .channel-list {
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:13px;
+      gap:10px;
     }
 
     .channel {
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
+      gap:10px;
       border:1px solid var(--line);
-      border-radius:16px;
-      padding:15px;
+      border-radius:13px;
+      padding:11px;
       background:#07142199;
     }
 
     .channel-title {
       font-weight:800;
+      font-size:12px;
     }
 
     .channel-desc {
       color:var(--muted);
-      font-size:12px;
-      margin-top:4px;
+      font-size:10px;
+      margin-top:3px;
     }
+
+    /* ================= SWITCH ================= */
 
     .switch {
       position:relative;
-      width:58px;
-      height:32px;
+      width:50px;
+      height:28px;
       flex:0 0 auto;
     }
 
@@ -286,8 +315,8 @@
     .slider::before {
       content:"";
       position:absolute;
-      width:24px;
-      height:24px;
+      width:20px;
+      height:20px;
       left:4px;
       top:4px;
       border-radius:50%;
@@ -300,32 +329,34 @@
     }
 
     .switch input:checked + .slider::before {
-      transform:translateX(26px);
+      transform:translateX(22px);
     }
+
+    /* ================= SCHEDULE ================= */
 
     .time-grid {
       display:grid;
       grid-template-columns:1fr 1fr 1fr;
-      gap:10px;
+      gap:8px;
     }
 
     .days {
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
-      margin-top:8px;
+      gap:6px;
+      margin-top:6px;
     }
 
     .day {
       display:flex;
       align-items:center;
-      gap:6px;
-      padding:7px 9px;
+      gap:5px;
+      padding:5px 7px;
       border:1px solid var(--line);
-      border-radius:10px;
+      border-radius:8px;
       background:#071421;
       color:var(--muted);
-      font-size:12px;
+      font-size:10px;
     }
 
     .day input {
@@ -336,73 +367,102 @@
 
     .schedule-actions {
       display:flex;
-      gap:9px;
-      margin-top:14px;
+      gap:7px;
+      margin-top:11px;
     }
+
+    /* ================= FAULT ================= */
 
     .fault {
       display:grid;
       grid-template-columns:1fr auto;
-      gap:15px;
+      gap:12px;
       align-items:center;
     }
 
     .fault-value {
-      font-size:23px;
+      font-size:20px;
       font-weight:800;
       color:var(--green);
-      margin-top:7px;
+      margin-top:5px;
     }
 
     .fault-value.bad {
       color:var(--red);
     }
 
+    /* ================= LOG ================= */
+
     .log {
-      margin-top:12px;
-      min-height:100px;
-      max-height:170px;
+      margin-top:9px;
+      min-height:80px;
+      max-height:140px;
       overflow:auto;
-      padding:11px;
+      padding:9px;
       border:1px solid var(--line);
-      border-radius:13px;
+      border-radius:10px;
       color:#b9cadb;
       background:#040c16;
-      font:12px/1.65 Consolas,monospace;
+      font:11px/1.6 Consolas,monospace;
       white-space:pre-wrap;
     }
 
     .notice {
-      margin-top:18px;
+      margin-top:14px;
       text-align:center;
       color:var(--muted);
-      font-size:12px;
-      line-height:1.6;
+      font-size:10px;
+      line-height:1.5;
     }
 
+    /* ================= TABLET ================= */
+
     @media(max-width:920px) {
+
+      .grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
       .metric {
-        grid-column:span 6;
+        grid-column:span 1;
       }
 
       .channels,
-      .schedule {
-        grid-column:span 12;
+      .schedule,
+      .full {
+        grid-column:1 / -1;
       }
 
       .config {
         grid-template-columns:1fr 1fr;
       }
+
     }
 
+    /* ================= MOBILE ================= */
+
     @media(max-width:640px) {
+
+      .wrap {
+        width:min(100% - 18px,1200px);
+        padding-top:12px;
+      }
+
       .top {
         flex-direction:column;
         align-items:flex-start;
       }
 
-      .metric {
-        grid-column:span 12;
+      .grid {
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+
+      .metric,
+      .channels,
+      .schedule,
+      .full {
+        grid-column:1 / -1;
       }
 
       .config,
@@ -418,14 +478,17 @@
       .fault button {
         width:100%;
       }
+
     }
   </style>
 </head>
+
 
 <body>
 
 <main class="wrap">
 
+  <!-- HEADER -->
   <header class="top">
 
     <div class="brand">
@@ -434,6 +497,7 @@
 
       <div>
         <h1>Smart Power Control Box</h1>
+
         <p class="muted">
           Blynk control, monitoring, protection and scheduling
         </p>
@@ -442,8 +506,13 @@
     </div>
 
     <div class="status">
+
       <span id="statusDot" class="dot"></span>
-      <span id="statusText">Not connected</span>
+
+      <span id="statusText">
+        Not connected
+      </span>
+
     </div>
 
   </header>
@@ -457,35 +526,53 @@
       <h2>Blynk connection</h2>
 
       <p class="muted">
-        Template ID: TMPL2tPxL9EMZ · Template name: SMART POWER CONTROL BOX
+        Template ID: TMPL2tPxL9EMZ ·
+        Template name: SMART POWER CONTROL BOX
       </p>
 
       <div class="config">
 
         <div class="field">
-          <label>Device Auth Token</label>
+
+          <label>
+            Device Auth Token
+          </label>
 
           <input
             id="token"
             type="password"
             value="1pKa3A2yIUwTFJy9PjBTyf-nTXENQ4w1"
-          />
+          >
+
         </div>
 
+
         <div class="field">
-          <label>Blynk server</label>
+
+          <label>
+            Blynk server
+          </label>
 
           <input
             id="server"
             value="https://blynk.cloud"
-          />
+          >
+
         </div>
 
-        <button id="connectBtn" class="primary">
+
+        <button
+          id="connectBtn"
+          class="primary"
+        >
           Connect
         </button>
 
-        <button id="disconnectBtn" class="secondary">
+
+        <button
+          id="disconnectBtn"
+          class="secondary"
+        >
           Disconnect
         </button>
 
@@ -502,12 +589,19 @@
       </div>
 
       <div class="metric-value">
-        <span id="voltage">--</span>
-        <span class="unit"> V</span>
+
+        <span id="voltage">
+          --
+        </span>
+
+        <span class="unit">
+          V
+        </span>
+
       </div>
 
       <div class="foot">
-        V4 · range 0–300 V
+        V4 · 0–300 V
       </div>
 
     </article>
@@ -521,12 +615,19 @@
       </div>
 
       <div class="metric-value">
-        <span id="current">--</span>
-        <span class="unit"> A</span>
+
+        <span id="current">
+          --
+        </span>
+
+        <span class="unit">
+          A
+        </span>
+
       </div>
 
       <div class="foot">
-        V5 · range 0–100 A
+        V5 · 0–100 A
       </div>
 
     </article>
@@ -540,12 +641,19 @@
       </div>
 
       <div class="metric-value">
-        <span id="power">--</span>
-        <span class="unit"> VA</span>
+
+        <span id="power">
+          --
+        </span>
+
+        <span class="unit">
+          VA
+        </span>
+
       </div>
 
       <div class="foot">
-        V6 · range 0–5000 VA
+        V6 · 0–5000 VA
       </div>
 
     </article>
@@ -559,12 +667,19 @@
       </div>
 
       <div class="metric-value">
-        <span id="energy">--</span>
-        <span class="unit"> kWh</span>
+
+        <span id="energy">
+          --
+        </span>
+
+        <span class="unit">
+          kWh
+        </span>
+
       </div>
 
       <div class="foot">
-        V9 · Stored daily energy
+        V9 · Daily energy
       </div>
 
     </article>
@@ -577,18 +692,21 @@
         Last Update
       </div>
 
-      <div id="lastUpdate" class="metric-value">
+      <div
+        id="lastUpdate"
+        class="metric-value"
+      >
         --:--
       </div>
 
       <div class="foot">
-        Refresh every 3 seconds
+        Every 3 seconds
       </div>
 
     </article>
 
 
-    <!-- POWER CHANNELS -->
+    <!-- CHANNELS -->
     <article class="card channels">
 
       <div class="head">
@@ -605,7 +723,10 @@
 
         </div>
 
-        <button id="refreshBtn" class="secondary">
+        <button
+          id="refreshBtn"
+          class="secondary"
+        >
           Refresh
         </button>
 
@@ -614,10 +735,13 @@
 
       <div class="channel-list">
 
+
         <!-- CHANNEL 1 -->
+
         <div class="channel">
 
           <div>
+
             <div class="channel-title">
               Channel 1 Control
             </div>
@@ -625,7 +749,9 @@
             <div class="channel-desc">
               V0 · Remote control
             </div>
+
           </div>
+
 
           <label class="switch">
 
@@ -633,7 +759,7 @@
               id="channel0"
               type="checkbox"
               data-pin="v0"
-            />
+            >
 
             <span class="slider"></span>
 
@@ -643,6 +769,7 @@
 
 
         <!-- CHANNEL 2 -->
+
         <div class="channel">
 
           <div>
@@ -657,13 +784,14 @@
 
           </div>
 
+
           <label class="switch">
 
             <input
               id="channel1"
               type="checkbox"
               data-pin="v1"
-            />
+            >
 
             <span class="slider"></span>
 
@@ -673,6 +801,7 @@
 
 
         <!-- CHANNEL 3 -->
+
         <div class="channel">
 
           <div>
@@ -687,13 +816,14 @@
 
           </div>
 
+
           <label class="switch">
 
             <input
               id="channel2"
               type="checkbox"
               data-pin="v2"
-            />
+            >
 
             <span class="slider"></span>
 
@@ -703,6 +833,7 @@
 
 
         <!-- CHANNEL 4 -->
+
         <div class="channel">
 
           <div>
@@ -717,13 +848,14 @@
 
           </div>
 
+
           <label class="switch">
 
             <input
               id="channel3"
               type="checkbox"
               data-pin="v3"
-            />
+            >
 
             <span class="slider"></span>
 
@@ -757,12 +889,18 @@
 
 
       <div class="field">
-        <label>Turn ON</label>
+
+        <label>
+          Turn ON
+        </label>
+
       </div>
+
 
       <div class="time-grid">
 
         <select id="onHour">
+
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -775,18 +913,25 @@
           <option>10</option>
           <option>11</option>
           <option>12</option>
+
         </select>
 
+
         <select id="onMinute">
+
           <option selected>00</option>
           <option>15</option>
           <option>30</option>
           <option>45</option>
+
         </select>
 
+
         <select id="onPeriod">
+
           <option>AM</option>
           <option selected>PM</option>
+
         </select>
 
       </div>
@@ -794,9 +939,13 @@
 
       <div
         class="field"
-        style="margin-top:13px"
+        style="margin-top:11px"
       >
-        <label>Turn OFF</label>
+
+        <label>
+          Turn OFF
+        </label>
+
       </div>
 
 
@@ -842,47 +991,79 @@
 
       <div
         class="field"
-        style="margin-top:13px"
+        style="margin-top:11px"
       >
 
         <label>
           Schedule days
         </label>
 
-        <div id="days" class="days">
+
+        <div
+          id="days"
+          class="days"
+        >
 
           <label class="day">
-            <input type="checkbox" value="0" checked>
+            <input
+              type="checkbox"
+              value="0"
+              checked
+            >
             Sun
           </label>
 
           <label class="day">
-            <input type="checkbox" value="1" checked>
+            <input
+              type="checkbox"
+              value="1"
+              checked
+            >
             Mon
           </label>
 
           <label class="day">
-            <input type="checkbox" value="2" checked>
+            <input
+              type="checkbox"
+              value="2"
+              checked
+            >
             Tue
           </label>
 
           <label class="day">
-            <input type="checkbox" value="3" checked>
+            <input
+              type="checkbox"
+              value="3"
+              checked
+            >
             Wed
           </label>
 
           <label class="day">
-            <input type="checkbox" value="4" checked>
+            <input
+              type="checkbox"
+              value="4"
+              checked
+            >
             Thu
           </label>
 
           <label class="day">
-            <input type="checkbox" value="5" checked>
+            <input
+              type="checkbox"
+              value="5"
+              checked
+            >
             Fri
           </label>
 
           <label class="day">
-            <input type="checkbox" value="6" checked>
+            <input
+              type="checkbox"
+              value="6"
+              checked
+            >
             Sat
           </label>
 
@@ -913,16 +1094,17 @@
       <p
         id="scheduleStatus"
         class="muted"
-        style="margin-top:12px"
+        style="margin-top:10px"
       >
         Schedule is disabled.
       </p>
 
+
       <p
         class="muted"
-        style="margin-top:7px"
+        style="margin-top:5px"
       >
-        The browser schedule runs only while this page remains open.
+        Browser schedule runs while this page is open.
       </p>
 
     </article>
@@ -945,6 +1127,7 @@
         </div>
 
       </div>
+
 
       <button
         id="resetFaultBtn"
@@ -973,6 +1156,7 @@
 
         </div>
 
+
         <button
           id="clearLogBtn"
           class="secondary"
@@ -981,6 +1165,7 @@
         </button>
 
       </div>
+
 
       <div
         id="log"
@@ -1017,27 +1202,33 @@
 
       <p
         class="muted"
-        style="font-size:14px;line-height:1.8;"
+        style="font-size:13px;line-height:1.7;"
       >
-        Smart Power Control Box is an intelligent electricity monitoring and
-        control system designed to help users manage electrical channels remotely
-        through a modern web dashboard and Blynk IoT.
+        Smart Power Control Box is an intelligent electricity monitoring
+        and control system designed to help users manage electrical
+        channels remotely through a modern web dashboard and Blynk IoT.
       </p>
 
 
       <p
         class="muted"
-        style="font-size:14px;line-height:1.8;margin-top:12px;"
+        style="font-size:13px;line-height:1.7;margin-top:10px;"
       >
-        The system allows users to control four power channels, monitor AC voltage,
-        current, apparent power and daily energy consumption, view system fault
-        conditions, reset protection faults, and schedule Channel 3 to operate
-        automatically at selected times and days.
+        The system allows users to control four power channels, monitor
+        AC voltage, current, apparent power and daily energy consumption,
+        view system fault conditions, reset protection faults, and
+        schedule Channel 3 to operate automatically.
       </p>
 
 
       <div
-        style="margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#071421;"
+        style="
+          margin-top:15px;
+          padding:12px;
+          border:1px solid var(--line);
+          border-radius:12px;
+          background:#071421;
+        "
       >
 
         <strong>
@@ -1045,7 +1236,10 @@
         </strong>
 
         <span
-          style="color:var(--green);font-weight:800;"
+          style="
+            color:var(--green);
+            font-weight:800;
+          "
         >
           Alliane Niyonizeye
         </span>
@@ -1068,7 +1262,8 @@
   <footer class="notice">
 
     Smart Power Control Box © 2026 —
-    Developed by <strong>Alliane Niyonizeye</strong>
+    Developed by
+    <strong>Alliane Niyonizeye</strong>
 
   </footer>
 
@@ -1081,10 +1276,11 @@
 
 
 /* =========================================================
-   GLOBAL STATE
+   HELPERS
 ========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
 
 
 const state = {
@@ -1101,23 +1297,21 @@ const state = {
 const channels = [
 
   $("channel0"),
-
   $("channel1"),
-
   $("channel2"),
-
   $("channel3")
 
 ];
 
 
 /* =========================================================
-   ACTIVITY LOG
+   LOG
 ========================================================= */
 
 function log(message) {
 
-  const stamp = new Date().toLocaleTimeString();
+  const stamp =
+    new Date().toLocaleTimeString();
 
   $("log").textContent +=
     `\n[${stamp}] ${message}`;
@@ -1129,12 +1323,14 @@ function log(message) {
 
 
 /* =========================================================
-   BLYNK CONFIGURATION
+   BLYNK
 ========================================================= */
 
 function token() {
 
-  return $("token").value.trim();
+  return $("token")
+    .value
+    .trim();
 
 }
 
@@ -1194,7 +1390,7 @@ function setConnection(
 
 
 /* =========================================================
-   GET BLYNK VIRTUAL PIN
+   GET BLYNK PIN
 ========================================================= */
 
 async function getPin(pin) {
@@ -1206,13 +1402,14 @@ async function getPin(pin) {
     `${server()}/external/api/get?token=${encodeURIComponent(token())}&${pin}`;
 
 
-  const response = await fetch(
-    url,
-    {
-      method: "GET",
-      cache: "no-store"
-    }
-  );
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+        cache:"no-store"
+      }
+    );
 
 
   const text =
@@ -1238,7 +1435,7 @@ async function getPin(pin) {
 
 
 /* =========================================================
-   UPDATE BLYNK VIRTUAL PIN
+   SET BLYNK PIN
 ========================================================= */
 
 async function setPin(
@@ -1254,13 +1451,14 @@ async function setPin(
     `&${pin}=${encodeURIComponent(value)}`;
 
 
-  const response = await fetch(
-    url,
-    {
-      method: "GET",
-      cache: "no-store"
-    }
-  );
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+        cache:"no-store"
+      }
+    );
 
 
   const text =
@@ -1280,7 +1478,7 @@ async function setPin(
 
 
 /* =========================================================
-   NUMBER FORMATTER
+   FORMAT NUMBERS
 ========================================================= */
 
 function formatNumber(
@@ -1317,28 +1515,22 @@ async function refreshDashboard() {
       V3 = Channel 4
       V4 = Voltage
       V5 = Current
-      V6 = Apparent Power
+      V6 = Power
       V7 = Fault
-      V9 = Daily Energy
+      V9 = Energy
     */
 
     const values =
       await Promise.all([
 
         getPin("v0"),
-
         getPin("v1"),
-
         getPin("v2"),
-
         getPin("v3"),
 
         getPin("v4"),
-
         getPin("v5"),
-
         getPin("v6"),
-
         getPin("v7"),
 
         getPin("v9")
@@ -1346,12 +1538,10 @@ async function refreshDashboard() {
       ]);
 
 
-    /* =====================================================
-       POWER CHANNELS
-    ===================================================== */
+    /* CHANNELS */
 
     channels.forEach(
-      (checkbox, index) => {
+      (checkbox,index) => {
 
         checkbox.checked =
           Number(values[index]) === 1;
@@ -1360,9 +1550,7 @@ async function refreshDashboard() {
     );
 
 
-    /* =====================================================
-       VOLTAGE
-    ===================================================== */
+    /* VOLTAGE */
 
     $("voltage").textContent =
       formatNumber(
@@ -1371,9 +1559,7 @@ async function refreshDashboard() {
       );
 
 
-    /* =====================================================
-       CURRENT
-    ===================================================== */
+    /* CURRENT */
 
     $("current").textContent =
       formatNumber(
@@ -1382,9 +1568,7 @@ async function refreshDashboard() {
       );
 
 
-    /* =====================================================
-       APPARENT POWER
-    ===================================================== */
+    /* POWER */
 
     $("power").textContent =
       formatNumber(
@@ -1393,9 +1577,7 @@ async function refreshDashboard() {
       );
 
 
-    /* =====================================================
-       DAILY ENERGY — V9
-    ===================================================== */
+    /* ENERGY V9 */
 
     $("energy").textContent =
       formatNumber(
@@ -1404,9 +1586,7 @@ async function refreshDashboard() {
       );
 
 
-    /* =====================================================
-       FAULT STATUS
-    ===================================================== */
+    /* FAULT */
 
     const fault =
       String(
@@ -1428,16 +1608,14 @@ async function refreshDashboard() {
       );
 
 
-    /* =====================================================
-       LAST UPDATE
-    ===================================================== */
+    /* LAST UPDATE */
 
     $("lastUpdate").textContent =
       new Date().toLocaleTimeString(
         [],
         {
-          hour: "2-digit",
-          minute: "2-digit"
+          hour:"2-digit",
+          minute:"2-digit"
         }
       );
 
@@ -1448,7 +1626,7 @@ async function refreshDashboard() {
     );
 
 
-  } catch (error) {
+  } catch(error) {
 
     setConnection(
       false,
@@ -1502,11 +1680,6 @@ async function connect() {
     );
 
 
-    /*
-      Refresh all Blynk values
-      every 3 seconds.
-    */
-
     state.pollTimer =
       setInterval(
         refreshDashboard,
@@ -1519,7 +1692,7 @@ async function connect() {
     );
 
 
-  } catch (error) {
+  } catch(error) {
 
     setConnection(
       false,
@@ -1547,7 +1720,8 @@ function disconnect() {
   );
 
 
-  state.pollTimer = null;
+  state.pollTimer =
+    null;
 
 
   setConnection(
@@ -1564,7 +1738,7 @@ function disconnect() {
 
 
 /* =========================================================
-   CHANGE POWER CHANNEL
+   CHANNEL CONTROL
 ========================================================= */
 
 async function changeChannel(
@@ -1581,7 +1755,8 @@ async function changeChannel(
       : 0;
 
 
-  checkbox.disabled = true;
+  checkbox.disabled =
+    true;
 
 
   try {
@@ -1599,7 +1774,7 @@ async function changeChannel(
     );
 
 
-  } catch (error) {
+  } catch(error) {
 
     checkbox.checked =
       !checkbox.checked;
@@ -1612,7 +1787,8 @@ async function changeChannel(
 
   } finally {
 
-    checkbox.disabled = false;
+    checkbox.disabled =
+      false;
 
   }
 
@@ -1663,7 +1839,7 @@ async function resetFault() {
     );
 
 
-  } catch (error) {
+  } catch(error) {
 
     log(
       `Fault reset failed: ${error.message}`
@@ -1681,7 +1857,7 @@ async function resetFault() {
 
 
 /* =========================================================
-   12-HOUR TO 24-HOUR
+   TIME FUNCTIONS
 ========================================================= */
 
 function to24Hour(
@@ -1715,16 +1891,12 @@ function to24Hour(
 
 
   return (
-    `${String(h).padStart(2, "0")}:` +
-    `${String(minute).padStart(2, "0")}`
+    `${String(h).padStart(2,"0")}:` +
+    `${String(minute).padStart(2,"0")}`
   );
 
 }
 
-
-/* =========================================================
-   CURRENT MINUTE
-========================================================= */
 
 function currentMinute() {
 
@@ -1736,13 +1908,13 @@ function currentMinute() {
 
     String(
       now.getHours()
-    ).padStart(2, "0") +
+    ).padStart(2,"0") +
 
     ":" +
 
     String(
       now.getMinutes()
-    ).padStart(2, "0")
+    ).padStart(2,"0")
 
   );
 
@@ -1750,7 +1922,7 @@ function currentMinute() {
 
 
 /* =========================================================
-   SELECTED DAYS
+   SCHEDULE
 ========================================================= */
 
 function selectedDays() {
@@ -1759,18 +1931,13 @@ function selectedDays() {
     ...document.querySelectorAll(
       "#days input:checked"
     )
-  ]
-    .map(
-      item =>
-        Number(item.value)
-    );
+  ].map(
+    item =>
+      Number(item.value)
+  );
 
 }
 
-
-/* =========================================================
-   SCHEDULE LABEL
-========================================================= */
 
 function scheduleLabel() {
 
@@ -1791,21 +1958,13 @@ function scheduleLabel() {
 }
 
 
-/* =========================================================
-   RUN SCHEDULE
-========================================================= */
-
 async function runSchedule() {
 
   if (
     localStorage.getItem(
       "smartPowerScheduleEnabled"
     ) !== "1"
-  ) {
-
-    return;
-
-  }
+  ) return;
 
 
   if (!token()) return;
@@ -1828,11 +1987,7 @@ async function runSchedule() {
     !days.includes(
       now.getDay()
     )
-  ) {
-
-    return;
-
-  }
+  ) return;
 
 
   const minute =
@@ -1842,11 +1997,7 @@ async function runSchedule() {
   if (
     state.lastScheduleMinute ===
     minute
-  ) {
-
-    return;
-
-  }
+  ) return;
 
 
   const onTime =
@@ -1915,7 +2066,7 @@ async function runSchedule() {
     }
 
 
-  } catch (error) {
+  } catch(error) {
 
     log(
       `Schedule failed: ${error.message}`
@@ -1925,10 +2076,6 @@ async function runSchedule() {
 
 }
 
-
-/* =========================================================
-   SAVE SCHEDULE
-========================================================= */
 
 function saveSchedule() {
 
@@ -1943,7 +2090,6 @@ function saveSchedule() {
     log(
       "Select at least one day."
     );
-
 
     return;
 
@@ -2013,10 +2159,6 @@ function saveSchedule() {
 
 }
 
-
-/* =========================================================
-   DISABLE SCHEDULE
-========================================================= */
 
 function disableSchedule() {
 
@@ -2141,7 +2283,7 @@ function restoreSettings() {
 
 
 /* =========================================================
-   BUTTON EVENTS
+   EVENTS
 ========================================================= */
 
 $("connectBtn")
@@ -2198,10 +2340,6 @@ $("clearLogBtn")
   );
 
 
-/* =========================================================
-   CHANNEL EVENTS
-========================================================= */
-
 channels.forEach(
   checkbox => {
 
@@ -2218,7 +2356,7 @@ channels.forEach(
 
 
 /* =========================================================
-   PAGE LOAD
+   START
 ========================================================= */
 
 window.addEventListener(
