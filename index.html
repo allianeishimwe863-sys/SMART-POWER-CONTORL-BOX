@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>Smart Power Control Box</title>
+
   <style>
     :root {
       --bg:#07111f;
@@ -19,7 +20,9 @@
       --yellow:#ffc95a;
     }
 
-    * { box-sizing:border-box; }
+    * {
+      box-sizing:border-box;
+    }
 
     body {
       margin:0;
@@ -32,7 +35,9 @@
         var(--bg);
     }
 
-    button,input,select { font:inherit; }
+    button,input,select {
+      font:inherit;
+    }
 
     .wrap {
       width:min(1200px,calc(100% - 28px));
@@ -65,10 +70,24 @@
       box-shadow:0 16px 35px rgba(37,135,221,.28);
     }
 
-    h1,h2,h3,p { margin:0; }
-    h1 { font-size:clamp(24px,4vw,35px); }
-    h2 { font-size:19px; }
-    .muted { color:var(--muted); font-size:13px; margin-top:5px; line-height:1.5; }
+    h1,h2,h3,p {
+      margin:0;
+    }
+
+    h1 {
+      font-size:clamp(24px,4vw,35px);
+    }
+
+    h2 {
+      font-size:19px;
+    }
+
+    .muted {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:5px;
+      line-height:1.5;
+    }
 
     .status {
       display:flex;
@@ -108,10 +127,21 @@
       box-shadow:0 22px 55px rgba(0,0,0,.34);
     }
 
-    .full { grid-column:span 12; }
-    .metric { grid-column:span 3; }
-    .channels { grid-column:span 8; }
-    .schedule { grid-column:span 4; }
+    .full {
+      grid-column:span 12;
+    }
+
+    .metric {
+      grid-column:span 3;
+    }
+
+    .channels {
+      grid-column:span 8;
+    }
+
+    .schedule {
+      grid-column:span 4;
+    }
 
     .head {
       display:flex;
@@ -162,21 +192,50 @@
       background:#275d96;
     }
 
-    button:disabled { opacity:.6; cursor:not-allowed; }
-    .primary { background:linear-gradient(135deg,#2679d4,#3aa9ff); }
-    .secondary { background:#26394e; border:1px solid var(--line); }
-    .success { background:linear-gradient(135deg,#14875f,#29ca8d); }
-    .danger { background:linear-gradient(135deg,#ab3048,#ef536b); }
+    button:disabled {
+      opacity:.6;
+      cursor:not-allowed;
+    }
 
-    .metric-name { color:var(--muted); font-size:13px; }
+    .primary {
+      background:linear-gradient(135deg,#2679d4,#3aa9ff);
+    }
+
+    .secondary {
+      background:#26394e;
+      border:1px solid var(--line);
+    }
+
+    .success {
+      background:linear-gradient(135deg,#14875f,#29ca8d);
+    }
+
+    .danger {
+      background:linear-gradient(135deg,#ab3048,#ef536b);
+    }
+
+    .metric-name {
+      color:var(--muted);
+      font-size:13px;
+    }
+
     .metric-value {
       font-size:clamp(31px,5vw,44px);
       font-weight:800;
       margin-top:12px;
       letter-spacing:-1px;
     }
-    .unit { font-size:15px; color:var(--muted); }
-    .foot { color:var(--muted); font-size:12px; margin-top:10px; }
+
+    .unit {
+      font-size:15px;
+      color:var(--muted);
+    }
+
+    .foot {
+      color:var(--muted);
+      font-size:12px;
+      margin-top:10px;
+    }
 
     .channel-list {
       display:grid;
@@ -195,8 +254,15 @@
       background:#07142199;
     }
 
-    .channel-title { font-weight:800; }
-    .channel-desc { color:var(--muted); font-size:12px; margin-top:4px; }
+    .channel-title {
+      font-weight:800;
+    }
+
+    .channel-desc {
+      color:var(--muted);
+      font-size:12px;
+      margin-top:4px;
+    }
 
     .switch {
       position:relative;
@@ -205,7 +271,9 @@
       flex:0 0 auto;
     }
 
-    .switch input { display:none; }
+    .switch input {
+      display:none;
+    }
 
     .slider {
       position:absolute;
@@ -227,8 +295,13 @@
       transition:.2s;
     }
 
-    .switch input:checked + .slider { background:var(--green); }
-    .switch input:checked + .slider::before { transform:translateX(26px); }
+    .switch input:checked + .slider {
+      background:var(--green);
+    }
+
+    .switch input:checked + .slider::before {
+      transform:translateX(26px);
+    }
 
     .time-grid {
       display:grid;
@@ -281,7 +354,9 @@
       margin-top:7px;
     }
 
-    .fault-value.bad { color:var(--red); }
+    .fault-value.bad {
+      color:var(--red);
+    }
 
     .log {
       margin-top:12px;
@@ -306,614 +381,1858 @@
     }
 
     @media(max-width:920px) {
-      .metric { grid-column:span 6; }
-      .channels,.schedule { grid-column:span 12; }
-      .config { grid-template-columns:1fr 1fr; }
+      .metric {
+        grid-column:span 6;
+      }
+
+      .channels,
+      .schedule {
+        grid-column:span 12;
+      }
+
+      .config {
+        grid-template-columns:1fr 1fr;
+      }
     }
 
     @media(max-width:640px) {
-      .top { flex-direction:column; align-items:flex-start; }
-      .metric { grid-column:span 12; }
-      .config,.channel-list,.time-grid { grid-template-columns:1fr; }
-      .fault { grid-template-columns:1fr; }
-      .fault button { width:100%; }
+      .top {
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .metric {
+        grid-column:span 12;
+      }
+
+      .config,
+      .channel-list,
+      .time-grid {
+        grid-template-columns:1fr;
+      }
+
+      .fault {
+        grid-template-columns:1fr;
+      }
+
+      .fault button {
+        width:100%;
+      }
     }
   </style>
 </head>
+
 <body>
+
 <main class="wrap">
+
   <header class="top">
+
     <div class="brand">
+
       <div class="logo">⚡</div>
+
       <div>
         <h1>Smart Power Control Box</h1>
-        <p class="muted">Blynk control, monitoring, protection and scheduling</p>
+        <p class="muted">
+          Blynk control, monitoring, protection and scheduling
+        </p>
       </div>
+
     </div>
 
     <div class="status">
       <span id="statusDot" class="dot"></span>
       <span id="statusText">Not connected</span>
     </div>
+
   </header>
 
+
   <section class="grid">
+
+    <!-- BLYNK CONNECTION -->
     <article class="card full">
+
       <h2>Blynk connection</h2>
-      <p class="muted">Template ID: TMPL2tPxL9EMZ · Template name: SMART POWER CONTROL BOX</p>
+
+      <p class="muted">
+        Template ID: TMPL2tPxL9EMZ · Template name: SMART POWER CONTROL BOX
+      </p>
 
       <div class="config">
+
         <div class="field">
           <label>Device Auth Token</label>
-          <input id="token" type="password" value="1pKa3A2yIUwTFJy9PjBTyf-nTXENQ4w1" />
+
+          <input
+            id="token"
+            type="password"
+            value="1pKa3A2yIUwTFJy9PjBTyf-nTXENQ4w1"
+          />
         </div>
 
         <div class="field">
           <label>Blynk server</label>
-          <input id="server" value="https://blynk.cloud" />
+
+          <input
+            id="server"
+            value="https://blynk.cloud"
+          />
         </div>
 
-        <button id="connectBtn" class="primary">Connect</button>
-        <button id="disconnectBtn" class="secondary">Disconnect</button>
+        <button id="connectBtn" class="primary">
+          Connect
+        </button>
+
+        <button id="disconnectBtn" class="secondary">
+          Disconnect
+        </button>
+
       </div>
+
     </article>
 
+
+    <!-- VOLTAGE -->
     <article class="card metric">
-      <div class="metric-name">AC Voltage</div>
-      <div class="metric-value"><span id="voltage">--</span><span class="unit"> V</span></div>
-      <div class="foot">V4 · range 0–300 V</div>
+
+      <div class="metric-name">
+        AC Voltage
+      </div>
+
+      <div class="metric-value">
+        <span id="voltage">--</span>
+        <span class="unit"> V</span>
+      </div>
+
+      <div class="foot">
+        V4 · range 0–300 V
+      </div>
+
     </article>
 
+
+    <!-- CURRENT -->
     <article class="card metric">
-      <div class="metric-name">AC Current</div>
-      <div class="metric-value"><span id="current">--</span><span class="unit"> A</span></div>
-      <div class="foot">V5 · range 0–100 A</div>
+
+      <div class="metric-name">
+        AC Current
+      </div>
+
+      <div class="metric-value">
+        <span id="current">--</span>
+        <span class="unit"> A</span>
+      </div>
+
+      <div class="foot">
+        V5 · range 0–100 A
+      </div>
+
     </article>
 
+
+    <!-- POWER -->
     <article class="card metric">
-      <div class="metric-name">Apparent Power</div>
-      <div class="metric-value"><span id="power">--</span><span class="unit"> VA</span></div>
-      <div class="foot">V6 · range 0–5000 VA</div>
+
+      <div class="metric-name">
+        Apparent Power
+      </div>
+
+      <div class="metric-value">
+        <span id="power">--</span>
+        <span class="unit"> VA</span>
+      </div>
+
+      <div class="foot">
+        V6 · range 0–5000 VA
+      </div>
+
     </article>
 
+
+    <!-- ENERGY V9 -->
     <article class="card metric">
-      <div class="metric-name">Last Update</div>
-      <div id="lastUpdate" class="metric-value">--:--</div>
-      <div class="foot">Refresh every 3 seconds</div>
+
+      <div class="metric-name">
+        Energy Used
+      </div>
+
+      <div class="metric-value">
+        <span id="energy">--</span>
+        <span class="unit"> kWh</span>
+      </div>
+
+      <div class="foot">
+        V9 · Stored daily energy
+      </div>
+
     </article>
 
+
+    <!-- LAST UPDATE -->
+    <article class="card metric">
+
+      <div class="metric-name">
+        Last Update
+      </div>
+
+      <div id="lastUpdate" class="metric-value">
+        --:--
+      </div>
+
+      <div class="foot">
+        Refresh every 3 seconds
+      </div>
+
+    </article>
+
+
+    <!-- POWER CHANNELS -->
     <article class="card channels">
+
       <div class="head">
+
         <div>
-          <h2>Power channels</h2>
-          <p class="muted">V0–V3 use Integer values 0 and 1</p>
+
+          <h2>
+            Power channels
+          </h2>
+
+          <p class="muted">
+            V0–V3 use Integer values 0 and 1
+          </p>
+
         </div>
-        <button id="refreshBtn" class="secondary">Refresh</button>
+
+        <button id="refreshBtn" class="secondary">
+          Refresh
+        </button>
+
       </div>
+
 
       <div class="channel-list">
+
+        <!-- CHANNEL 1 -->
         <div class="channel">
+
           <div>
-            <div class="channel-title">Channel 1 Control</div>
-            <div class="channel-desc">V0 · Remote control</div>
+            <div class="channel-title">
+              Channel 1 Control
+            </div>
+
+            <div class="channel-desc">
+              V0 · Remote control
+            </div>
           </div>
+
           <label class="switch">
-            <input id="channel0" type="checkbox" data-pin="v0" />
+
+            <input
+              id="channel0"
+              type="checkbox"
+              data-pin="v0"
+            />
+
             <span class="slider"></span>
+
           </label>
+
         </div>
 
+
+        <!-- CHANNEL 2 -->
         <div class="channel">
+
           <div>
-            <div class="channel-title">Channel 2 Control</div>
-            <div class="channel-desc">V1 · Protected channel</div>
+
+            <div class="channel-title">
+              Channel 2 Control
+            </div>
+
+            <div class="channel-desc">
+              V1 · Protected channel
+            </div>
+
           </div>
+
           <label class="switch">
-            <input id="channel1" type="checkbox" data-pin="v1" />
+
+            <input
+              id="channel1"
+              type="checkbox"
+              data-pin="v1"
+            />
+
             <span class="slider"></span>
+
           </label>
+
         </div>
 
+
+        <!-- CHANNEL 3 -->
         <div class="channel">
+
           <div>
-            <div class="channel-title">Channel 3</div>
-            <div class="channel-desc">V2 · Manual and scheduled</div>
+
+            <div class="channel-title">
+              Channel 3
+            </div>
+
+            <div class="channel-desc">
+              V2 · Manual and scheduled
+            </div>
+
           </div>
+
           <label class="switch">
-            <input id="channel2" type="checkbox" data-pin="v2" />
+
+            <input
+              id="channel2"
+              type="checkbox"
+              data-pin="v2"
+            />
+
             <span class="slider"></span>
+
           </label>
+
         </div>
 
+
+        <!-- CHANNEL 4 -->
         <div class="channel">
+
           <div>
-            <div class="channel-title">Channel 4</div>
-            <div class="channel-desc">V3 · Manual control</div>
+
+            <div class="channel-title">
+              Channel 4
+            </div>
+
+            <div class="channel-desc">
+              V3 · Manual control
+            </div>
+
           </div>
+
           <label class="switch">
-            <input id="channel3" type="checkbox" data-pin="v3" />
+
+            <input
+              id="channel3"
+              type="checkbox"
+              data-pin="v3"
+            />
+
             <span class="slider"></span>
+
           </label>
+
         </div>
+
       </div>
+
     </article>
 
+
+    <!-- SCHEDULE -->
     <article class="card schedule">
+
       <div class="head">
+
         <div>
-          <h2>Channel 3 schedule</h2>
-          <p class="muted">User-selectable 12-hour time</p>
+
+          <h2>
+            Channel 3 schedule
+          </h2>
+
+          <p class="muted">
+            User-selectable 12-hour time
+          </p>
+
         </div>
+
       </div>
 
-      <div class="field"><label>Turn ON</label></div>
+
+      <div class="field">
+        <label>Turn ON</label>
+      </div>
+
       <div class="time-grid">
+
         <select id="onHour">
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option selected>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option><option>11</option><option>12</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option selected>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
         </select>
+
         <select id="onMinute">
-          <option selected>00</option><option>15</option><option>30</option><option>45</option>
+          <option selected>00</option>
+          <option>15</option>
+          <option>30</option>
+          <option>45</option>
         </select>
-        <select id="onPeriod"><option>AM</option><option selected>PM</option></select>
+
+        <select id="onPeriod">
+          <option>AM</option>
+          <option selected>PM</option>
+        </select>
+
       </div>
 
-      <div class="field" style="margin-top:13px"><label>Turn OFF</label></div>
+
+      <div
+        class="field"
+        style="margin-top:13px"
+      >
+        <label>Turn OFF</label>
+      </div>
+
+
       <div class="time-grid">
+
         <select id="offHour">
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7</option><option>8</option>
-          <option>9</option><option selected>10</option><option>11</option><option>12</option>
+
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option selected>10</option>
+          <option>11</option>
+          <option>12</option>
+
         </select>
+
+
         <select id="offMinute">
-          <option selected>00</option><option>15</option><option>30</option><option>45</option>
+
+          <option selected>00</option>
+          <option>15</option>
+          <option>30</option>
+          <option>45</option>
+
         </select>
-        <select id="offPeriod"><option>AM</option><option selected>PM</option></select>
+
+
+        <select id="offPeriod">
+
+          <option>AM</option>
+          <option selected>PM</option>
+
+        </select>
+
       </div>
 
-      <div class="field" style="margin-top:13px">
-        <label>Schedule days</label>
+
+      <div
+        class="field"
+        style="margin-top:13px"
+      >
+
+        <label>
+          Schedule days
+        </label>
+
         <div id="days" class="days">
-          <label class="day"><input type="checkbox" value="0" checked>Sun</label>
-          <label class="day"><input type="checkbox" value="1" checked>Mon</label>
-          <label class="day"><input type="checkbox" value="2" checked>Tue</label>
-          <label class="day"><input type="checkbox" value="3" checked>Wed</label>
-          <label class="day"><input type="checkbox" value="4" checked>Thu</label>
-          <label class="day"><input type="checkbox" value="5" checked>Fri</label>
-          <label class="day"><input type="checkbox" value="6" checked>Sat</label>
+
+          <label class="day">
+            <input type="checkbox" value="0" checked>
+            Sun
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="1" checked>
+            Mon
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="2" checked>
+            Tue
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="3" checked>
+            Wed
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="4" checked>
+            Thu
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="5" checked>
+            Fri
+          </label>
+
+          <label class="day">
+            <input type="checkbox" value="6" checked>
+            Sat
+          </label>
+
         </div>
+
       </div>
+
 
       <div class="schedule-actions">
-        <button id="enableScheduleBtn" class="success">Save & Enable</button>
-        <button id="disableScheduleBtn" class="secondary">Disable</button>
+
+        <button
+          id="enableScheduleBtn"
+          class="success"
+        >
+          Save & Enable
+        </button>
+
+        <button
+          id="disableScheduleBtn"
+          class="secondary"
+        >
+          Disable
+        </button>
+
       </div>
 
-      <p id="scheduleStatus" class="muted" style="margin-top:12px">Schedule is disabled.</p>
-      <p class="muted" style="margin-top:7px">The browser schedule runs only while this page remains open.</p>
+
+      <p
+        id="scheduleStatus"
+        class="muted"
+        style="margin-top:12px"
+      >
+        Schedule is disabled.
+      </p>
+
+      <p
+        class="muted"
+        style="margin-top:7px"
+      >
+        The browser schedule runs only while this page remains open.
+      </p>
+
     </article>
 
+
+    <!-- FAULT -->
     <article class="card full fault">
+
       <div>
-        <div class="muted">Fault Status · V7</div>
-        <div id="faultStatus" class="fault-value">UNKNOWN</div>
+
+        <div class="muted">
+          Fault Status · V7
+        </div>
+
+        <div
+          id="faultStatus"
+          class="fault-value"
+        >
+          UNKNOWN
+        </div>
+
       </div>
-      <button id="resetFaultBtn" class="danger">Reset Fault</button>
+
+      <button
+        id="resetFaultBtn"
+        class="danger"
+      >
+        Reset Fault
+      </button>
+
     </article>
 
+
+    <!-- ACTIVITY LOG -->
     <article class="card full">
+
       <div class="head">
+
         <div>
-          <h2>Activity log</h2>
-          <p class="muted">Connection and control events</p>
+
+          <h2>
+            Activity log
+          </h2>
+
+          <p class="muted">
+            Connection and control events
+          </p>
+
         </div>
-        <button id="clearLogBtn" class="secondary">Clear</button>
+
+        <button
+          id="clearLogBtn"
+          class="secondary"
+        >
+          Clear
+        </button>
+
       </div>
-      <div id="log" class="log">Dashboard ready.</div>
+
+      <div
+        id="log"
+        class="log"
+      >
+        Dashboard ready.
+      </div>
+
     </article>
 
-    <article class="card full" id="about">
+
+    <!-- ABOUT -->
+    <article
+      class="card full"
+      id="about"
+    >
+
       <div class="head">
+
         <div>
-          <h2>About This Project</h2>
-          <p class="muted">Smart electricity monitoring and remote control</p>
+
+          <h2>
+            About This Project
+          </h2>
+
+          <p class="muted">
+            Smart electricity monitoring and remote control
+          </p>
+
         </div>
+
       </div>
 
-      <p class="muted" style="font-size:14px; line-height:1.8;">
+
+      <p
+        class="muted"
+        style="font-size:14px;line-height:1.8;"
+      >
         Smart Power Control Box is an intelligent electricity monitoring and
         control system designed to help users manage electrical channels remotely
         through a modern web dashboard and Blynk IoT.
       </p>
 
-      <p class="muted" style="font-size:14px; line-height:1.8; margin-top:12px;">
+
+      <p
+        class="muted"
+        style="font-size:14px;line-height:1.8;margin-top:12px;"
+      >
         The system allows users to control four power channels, monitor AC voltage,
-        current and apparent power, view system fault conditions, reset protection
-        faults, and schedule Channel 3 to operate automatically at selected times
-        and days.
+        current, apparent power and daily energy consumption, view system fault
+        conditions, reset protection faults, and schedule Channel 3 to operate
+        automatically at selected times and days.
       </p>
 
-      <div style="margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#071421;">
-        <strong>Developer:</strong>
-        <span style="color:var(--green);font-weight:800;">Alliane Niyonizeye </span>
+
+      <div
+        style="margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#071421;"
+      >
+
+        <strong>
+          Developer:
+        </strong>
+
+        <span
+          style="color:var(--green);font-weight:800;"
+        >
+          Alliane Niyonizeye
+        </span>
+
       </div>
+
     </article>
+
   </section>
 
+
   <p class="notice">
-    This website controls Blynk Virtual Pins. Test using safe low-voltage loads before any household installation.
+
+    This website controls Blynk Virtual Pins.
+    Test using safe low-voltage loads before any household installation.
+
   </p>
 
+
   <footer class="notice">
-    Smart Power Control Box © 2026 — Developed by <strong>Alliane Niyonizeye</strong>
+
+    Smart Power Control Box © 2026 —
+    Developed by <strong>Alliane Niyonizeye</strong>
+
   </footer>
+
 </main>
 
+
 <script>
+
 "use strict";
+
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
 const $ = id => document.getElementById(id);
 
+
 const state = {
+
   pollTimer: null,
+
   scheduleTimer: null,
+
   lastScheduleMinute: ""
+
 };
 
+
 const channels = [
+
   $("channel0"),
+
   $("channel1"),
+
   $("channel2"),
+
   $("channel3")
+
 ];
 
+
+/* =========================================================
+   ACTIVITY LOG
+========================================================= */
+
 function log(message) {
+
   const stamp = new Date().toLocaleTimeString();
-  $("log").textContent += `\n[${stamp}] ${message}`;
-  $("log").scrollTop = $("log").scrollHeight;
+
+  $("log").textContent +=
+    `\n[${stamp}] ${message}`;
+
+  $("log").scrollTop =
+    $("log").scrollHeight;
+
 }
+
+
+/* =========================================================
+   BLYNK CONFIGURATION
+========================================================= */
 
 function token() {
+
   return $("token").value.trim();
+
 }
+
 
 function server() {
-  return $("server").value.trim().replace(/\/+$/, "");
+
+  return $("server")
+    .value
+    .trim()
+    .replace(/\/+$/, "");
+
 }
+
 
 function validateConnection() {
-  if (!token()) throw new Error("Device Auth Token is empty.");
-  if (!server().startsWith("https://")) throw new Error("Server must start with https://");
+
+  if (!token()) {
+
+    throw new Error(
+      "Device Auth Token is empty."
+    );
+
+  }
+
+
+  if (!server().startsWith("https://")) {
+
+    throw new Error(
+      "Server must start with https://"
+    );
+
+  }
+
 }
 
-function setConnection(online, text) {
-  $("statusDot").classList.toggle("online", online);
-  $("statusText").textContent = text;
+
+/* =========================================================
+   CONNECTION STATUS
+========================================================= */
+
+function setConnection(
+  online,
+  text
+) {
+
+  $("statusDot")
+    .classList
+    .toggle(
+      "online",
+      online
+    );
+
+  $("statusText").textContent =
+    text;
+
 }
+
+
+/* =========================================================
+   GET BLYNK VIRTUAL PIN
+========================================================= */
 
 async function getPin(pin) {
+
   validateConnection();
+
 
   const url =
     `${server()}/external/api/get?token=${encodeURIComponent(token())}&${pin}`;
 
-  const response = await fetch(url, {
-    method: "GET",
-    cache: "no-store"
-  });
 
-  const text = await response.text();
+  const response = await fetch(
+    url,
+    {
+      method: "GET",
+      cache: "no-store"
+    }
+  );
+
+
+  const text =
+    await response.text();
+
 
   if (!response.ok) {
-    throw new Error(text || `HTTP ${response.status}`);
+
+    throw new Error(
+      text ||
+      `HTTP ${response.status}`
+    );
+
   }
 
-  return text.replace(/^"|"$/g, "");
+
+  return text.replace(
+    /^"|"$/g,
+    ""
+  );
+
 }
 
-async function setPin(pin, value) {
+
+/* =========================================================
+   UPDATE BLYNK VIRTUAL PIN
+========================================================= */
+
+async function setPin(
+  pin,
+  value
+) {
+
   validateConnection();
+
 
   const url =
     `${server()}/external/api/update?token=${encodeURIComponent(token())}` +
     `&${pin}=${encodeURIComponent(value)}`;
 
-  const response = await fetch(url, {
-    method: "GET",
-    cache: "no-store"
-  });
 
-  const text = await response.text();
+  const response = await fetch(
+    url,
+    {
+      method: "GET",
+      cache: "no-store"
+    }
+  );
+
+
+  const text =
+    await response.text();
+
 
   if (!response.ok) {
-    throw new Error(text || `HTTP ${response.status}`);
-  }
-}
 
-function formatNumber(value, decimals) {
-  const number = Number(value);
-  return Number.isFinite(number) ? number.toFixed(decimals) : "--";
-}
-
-async function refreshDashboard() {
-  if (!token()) return;
-
-  try {
-    const values = await Promise.all([
-      getPin("v0"),
-      getPin("v1"),
-      getPin("v2"),
-      getPin("v3"),
-      getPin("v4"),
-      getPin("v5"),
-      getPin("v6"),
-      getPin("v7")
-    ]);
-
-    channels.forEach((checkbox, index) => {
-      checkbox.checked = Number(values[index]) === 1;
-    });
-
-    $("voltage").textContent = formatNumber(values[4], 1);
-    $("current").textContent = formatNumber(values[5], 2);
-    $("power").textContent = formatNumber(values[6], 1);
-
-    const fault = String(values[7] || "UNKNOWN").toUpperCase();
-    $("faultStatus").textContent = fault;
-    $("faultStatus").classList.toggle(
-      "bad",
-      fault !== "NORMAL" && fault !== "NONE"
+    throw new Error(
+      text ||
+      `HTTP ${response.status}`
     );
 
-    $("lastUpdate").textContent = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-
-    setConnection(true, "Blynk connected");
-  } catch (error) {
-    setConnection(false, "Connection failed");
-    log(`Refresh failed: ${error.message}`);
   }
+
 }
+
+
+/* =========================================================
+   NUMBER FORMATTER
+========================================================= */
+
+function formatNumber(
+  value,
+  decimals
+) {
+
+  const number =
+    Number(value);
+
+
+  return Number.isFinite(number)
+    ? number.toFixed(decimals)
+    : "--";
+
+}
+
+
+/* =========================================================
+   REFRESH DASHBOARD
+========================================================= */
+
+async function refreshDashboard() {
+
+  if (!token()) return;
+
+
+  try {
+
+    /*
+      V0 = Channel 1
+      V1 = Channel 2
+      V2 = Channel 3
+      V3 = Channel 4
+      V4 = Voltage
+      V5 = Current
+      V6 = Apparent Power
+      V7 = Fault
+      V9 = Daily Energy
+    */
+
+    const values =
+      await Promise.all([
+
+        getPin("v0"),
+
+        getPin("v1"),
+
+        getPin("v2"),
+
+        getPin("v3"),
+
+        getPin("v4"),
+
+        getPin("v5"),
+
+        getPin("v6"),
+
+        getPin("v7"),
+
+        getPin("v9")
+
+      ]);
+
+
+    /* =====================================================
+       POWER CHANNELS
+    ===================================================== */
+
+    channels.forEach(
+      (checkbox, index) => {
+
+        checkbox.checked =
+          Number(values[index]) === 1;
+
+      }
+    );
+
+
+    /* =====================================================
+       VOLTAGE
+    ===================================================== */
+
+    $("voltage").textContent =
+      formatNumber(
+        values[4],
+        1
+      );
+
+
+    /* =====================================================
+       CURRENT
+    ===================================================== */
+
+    $("current").textContent =
+      formatNumber(
+        values[5],
+        2
+      );
+
+
+    /* =====================================================
+       APPARENT POWER
+    ===================================================== */
+
+    $("power").textContent =
+      formatNumber(
+        values[6],
+        1
+      );
+
+
+    /* =====================================================
+       DAILY ENERGY — V9
+    ===================================================== */
+
+    $("energy").textContent =
+      formatNumber(
+        values[8],
+        2
+      );
+
+
+    /* =====================================================
+       FAULT STATUS
+    ===================================================== */
+
+    const fault =
+      String(
+        values[7] ||
+        "UNKNOWN"
+      ).toUpperCase();
+
+
+    $("faultStatus").textContent =
+      fault;
+
+
+    $("faultStatus")
+      .classList
+      .toggle(
+        "bad",
+        fault !== "NORMAL" &&
+        fault !== "NONE"
+      );
+
+
+    /* =====================================================
+       LAST UPDATE
+    ===================================================== */
+
+    $("lastUpdate").textContent =
+      new Date().toLocaleTimeString(
+        [],
+        {
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
+
+    setConnection(
+      true,
+      "Blynk connected"
+    );
+
+
+  } catch (error) {
+
+    setConnection(
+      false,
+      "Connection failed"
+    );
+
+
+    log(
+      `Refresh failed: ${error.message}`
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CONNECT
+========================================================= */
 
 async function connect() {
+
   try {
+
     validateConnection();
 
-    sessionStorage.setItem("smartPowerToken", token());
-    localStorage.setItem("smartPowerServer", server());
 
-    setConnection(false, "Connecting...");
+    sessionStorage.setItem(
+      "smartPowerToken",
+      token()
+    );
+
+
+    localStorage.setItem(
+      "smartPowerServer",
+      server()
+    );
+
+
+    setConnection(
+      false,
+      "Connecting..."
+    );
+
+
     await refreshDashboard();
 
-    clearInterval(state.pollTimer);
-    state.pollTimer = setInterval(refreshDashboard, 3000);
 
-    log("Connected to Blynk Cloud.");
+    clearInterval(
+      state.pollTimer
+    );
+
+
+    /*
+      Refresh all Blynk values
+      every 3 seconds.
+    */
+
+    state.pollTimer =
+      setInterval(
+        refreshDashboard,
+        3000
+      );
+
+
+    log(
+      "Connected to Blynk Cloud."
+    );
+
+
   } catch (error) {
-    setConnection(false, "Connection failed");
-    log(error.message);
+
+    setConnection(
+      false,
+      "Connection failed"
+    );
+
+
+    log(
+      error.message
+    );
+
   }
+
 }
+
+
+/* =========================================================
+   DISCONNECT
+========================================================= */
 
 function disconnect() {
-  clearInterval(state.pollTimer);
+
+  clearInterval(
+    state.pollTimer
+  );
+
+
   state.pollTimer = null;
-  setConnection(false, "Not connected");
-  log("Disconnected.");
+
+
+  setConnection(
+    false,
+    "Not connected"
+  );
+
+
+  log(
+    "Disconnected."
+  );
+
 }
 
-async function changeChannel(checkbox) {
-  const pin = checkbox.dataset.pin;
-  const value = checkbox.checked ? 1 : 0;
+
+/* =========================================================
+   CHANGE POWER CHANNEL
+========================================================= */
+
+async function changeChannel(
+  checkbox
+) {
+
+  const pin =
+    checkbox.dataset.pin;
+
+
+  const value =
+    checkbox.checked
+      ? 1
+      : 0;
+
 
   checkbox.disabled = true;
 
+
   try {
-    await setPin(pin, value);
-    log(`${pin.toUpperCase()} changed to ${value ? "ON" : "OFF"}.`);
+
+    await setPin(
+      pin,
+      value
+    );
+
+
+    log(
+      `${pin.toUpperCase()} changed to ${
+        value ? "ON" : "OFF"
+      }.`
+    );
+
+
   } catch (error) {
-    checkbox.checked = !checkbox.checked;
-    log(`Could not change ${pin.toUpperCase()}: ${error.message}`);
+
+    checkbox.checked =
+      !checkbox.checked;
+
+
+    log(
+      `Could not change ${pin.toUpperCase()}: ${error.message}`
+    );
+
+
   } finally {
+
     checkbox.disabled = false;
+
   }
+
 }
+
+
+/* =========================================================
+   RESET FAULT
+========================================================= */
 
 async function resetFault() {
-  $("resetFaultBtn").disabled = true;
+
+  $("resetFaultBtn").disabled =
+    true;
+
 
   try {
-    await setPin("v8", 1);
-    await new Promise(resolve => setTimeout(resolve, 350));
-    await setPin("v8", 0);
 
-    log("Fault reset command sent through V8.");
-    setTimeout(refreshDashboard, 800);
+    await setPin(
+      "v8",
+      1
+    );
+
+
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          350
+        )
+    );
+
+
+    await setPin(
+      "v8",
+      0
+    );
+
+
+    log(
+      "Fault reset command sent through V8."
+    );
+
+
+    setTimeout(
+      refreshDashboard,
+      800
+    );
+
+
   } catch (error) {
-    log(`Fault reset failed: ${error.message}`);
+
+    log(
+      `Fault reset failed: ${error.message}`
+    );
+
+
   } finally {
-    $("resetFaultBtn").disabled = false;
+
+    $("resetFaultBtn").disabled =
+      false;
+
   }
+
 }
 
-function to24Hour(hour, minute, period) {
-  let h = Number(hour);
 
-  if (period === "AM" && h === 12) h = 0;
-  if (period === "PM" && h !== 12) h += 12;
+/* =========================================================
+   12-HOUR TO 24-HOUR
+========================================================= */
 
-  return `${String(h).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+function to24Hour(
+  hour,
+  minute,
+  period
+) {
+
+  let h =
+    Number(hour);
+
+
+  if (
+    period === "AM" &&
+    h === 12
+  ) {
+
+    h = 0;
+
+  }
+
+
+  if (
+    period === "PM" &&
+    h !== 12
+  ) {
+
+    h += 12;
+
+  }
+
+
+  return (
+    `${String(h).padStart(2, "0")}:` +
+    `${String(minute).padStart(2, "0")}`
+  );
+
 }
+
+
+/* =========================================================
+   CURRENT MINUTE
+========================================================= */
 
 function currentMinute() {
-  const now = new Date();
+
+  const now =
+    new Date();
+
 
   return (
-    String(now.getHours()).padStart(2, "0") +
+
+    String(
+      now.getHours()
+    ).padStart(2, "0") +
+
     ":" +
-    String(now.getMinutes()).padStart(2, "0")
+
+    String(
+      now.getMinutes()
+    ).padStart(2, "0")
+
   );
+
 }
+
+
+/* =========================================================
+   SELECTED DAYS
+========================================================= */
 
 function selectedDays() {
-  return [...document.querySelectorAll("#days input:checked")]
-    .map(item => Number(item.value));
+
+  return [
+    ...document.querySelectorAll(
+      "#days input:checked"
+    )
+  ]
+    .map(
+      item =>
+        Number(item.value)
+    );
+
 }
+
+
+/* =========================================================
+   SCHEDULE LABEL
+========================================================= */
 
 function scheduleLabel() {
+
   return (
-    `${$("onHour").value}:${$("onMinute").value} ${$("onPeriod").value}` +
-    ` → ${$("offHour").value}:${$("offMinute").value} ${$("offPeriod").value}`
+
+    `${$("onHour").value}:` +
+    `${$("onMinute").value} ` +
+    `${$("onPeriod").value}` +
+
+    ` → ` +
+
+    `${$("offHour").value}:` +
+    `${$("offMinute").value} ` +
+    `${$("offPeriod").value}`
+
   );
+
 }
+
+
+/* =========================================================
+   RUN SCHEDULE
+========================================================= */
 
 async function runSchedule() {
-  if (localStorage.getItem("smartPowerScheduleEnabled") !== "1") return;
+
+  if (
+    localStorage.getItem(
+      "smartPowerScheduleEnabled"
+    ) !== "1"
+  ) {
+
+    return;
+
+  }
+
+
   if (!token()) return;
 
-  const now = new Date();
-  const days = JSON.parse(
-    localStorage.getItem("smartPowerScheduleDays") ||
-    "[0,1,2,3,4,5,6]"
-  );
 
-  if (!days.includes(now.getDay())) return;
+  const now =
+    new Date();
 
-  const minute = currentMinute();
-  if (state.lastScheduleMinute === minute) return;
 
-  const onTime = to24Hour(
-    $("onHour").value,
-    $("onMinute").value,
-    $("onPeriod").value
-  );
+  const days =
+    JSON.parse(
+      localStorage.getItem(
+        "smartPowerScheduleDays"
+      ) ||
+      "[0,1,2,3,4,5,6]"
+    );
 
-  const offTime = to24Hour(
-    $("offHour").value,
-    $("offMinute").value,
-    $("offPeriod").value
-  );
+
+  if (
+    !days.includes(
+      now.getDay()
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  const minute =
+    currentMinute();
+
+
+  if (
+    state.lastScheduleMinute ===
+    minute
+  ) {
+
+    return;
+
+  }
+
+
+  const onTime =
+    to24Hour(
+      $("onHour").value,
+      $("onMinute").value,
+      $("onPeriod").value
+    );
+
+
+  const offTime =
+    to24Hour(
+      $("offHour").value,
+      $("offMinute").value,
+      $("offPeriod").value
+    );
+
 
   try {
-    if (minute === onTime) {
-      state.lastScheduleMinute = minute;
-      await setPin("v2", 1);
-      $("channel2").checked = true;
-      log("Schedule turned Channel 3 ON.");
-    } else if (minute === offTime) {
-      state.lastScheduleMinute = minute;
-      await setPin("v2", 0);
-      $("channel2").checked = false;
-      log("Schedule turned Channel 3 OFF.");
+
+    if (
+      minute === onTime
+    ) {
+
+      state.lastScheduleMinute =
+        minute;
+
+
+      await setPin(
+        "v2",
+        1
+      );
+
+
+      $("channel2").checked =
+        true;
+
+
+      log(
+        "Schedule turned Channel 3 ON."
+      );
+
+
+    } else if (
+      minute === offTime
+    ) {
+
+      state.lastScheduleMinute =
+        minute;
+
+
+      await setPin(
+        "v2",
+        0
+      );
+
+
+      $("channel2").checked =
+        false;
+
+
+      log(
+        "Schedule turned Channel 3 OFF."
+      );
+
     }
+
+
   } catch (error) {
-    log(`Schedule failed: ${error.message}`);
+
+    log(
+      `Schedule failed: ${error.message}`
+    );
+
   }
+
 }
 
-function saveSchedule() {
-  const days = selectedDays();
 
-  if (days.length === 0) {
-    log("Select at least one day.");
+/* =========================================================
+   SAVE SCHEDULE
+========================================================= */
+
+function saveSchedule() {
+
+  const days =
+    selectedDays();
+
+
+  if (
+    days.length === 0
+  ) {
+
+    log(
+      "Select at least one day."
+    );
+
+
     return;
+
   }
 
+
   const settings = {
-    onHour: $("onHour").value,
-    onMinute: $("onMinute").value,
-    onPeriod: $("onPeriod").value,
-    offHour: $("offHour").value,
-    offMinute: $("offMinute").value,
-    offPeriod: $("offPeriod").value
+
+    onHour:
+      $("onHour").value,
+
+    onMinute:
+      $("onMinute").value,
+
+    onPeriod:
+      $("onPeriod").value,
+
+    offHour:
+      $("offHour").value,
+
+    offMinute:
+      $("offMinute").value,
+
+    offPeriod:
+      $("offPeriod").value
+
   };
+
 
   localStorage.setItem(
     "smartPowerScheduleSettings",
     JSON.stringify(settings)
   );
 
+
   localStorage.setItem(
     "smartPowerScheduleDays",
     JSON.stringify(days)
   );
 
-  localStorage.setItem("smartPowerScheduleEnabled", "1");
 
-  clearInterval(state.scheduleTimer);
-  state.scheduleTimer = setInterval(runSchedule, 1000);
+  localStorage.setItem(
+    "smartPowerScheduleEnabled",
+    "1"
+  );
 
-  $("scheduleStatus").textContent = `Enabled: ${scheduleLabel()}`;
-  log(`Schedule saved: ${scheduleLabel()}`);
+
+  clearInterval(
+    state.scheduleTimer
+  );
+
+
+  state.scheduleTimer =
+    setInterval(
+      runSchedule,
+      1000
+    );
+
+
+  $("scheduleStatus").textContent =
+    `Enabled: ${scheduleLabel()}`;
+
+
+  log(
+    `Schedule saved: ${scheduleLabel()}`
+  );
+
 }
+
+
+/* =========================================================
+   DISABLE SCHEDULE
+========================================================= */
 
 function disableSchedule() {
-  localStorage.setItem("smartPowerScheduleEnabled", "0");
 
-  clearInterval(state.scheduleTimer);
-  state.scheduleTimer = null;
+  localStorage.setItem(
+    "smartPowerScheduleEnabled",
+    "0"
+  );
 
-  $("scheduleStatus").textContent = "Schedule is disabled.";
-  log("Channel 3 browser schedule disabled.");
+
+  clearInterval(
+    state.scheduleTimer
+  );
+
+
+  state.scheduleTimer =
+    null;
+
+
+  $("scheduleStatus").textContent =
+    "Schedule is disabled.";
+
+
+  log(
+    "Channel 3 browser schedule disabled."
+  );
+
 }
+
+
+/* =========================================================
+   RESTORE SETTINGS
+========================================================= */
 
 function restoreSettings() {
+
   $("server").value =
-    localStorage.getItem("smartPowerServer") ||
+    localStorage.getItem(
+      "smartPowerServer"
+    ) ||
     "https://blynk.cloud";
 
+
   $("token").value =
-    sessionStorage.getItem("smartPowerToken") ||
+    sessionStorage.getItem(
+      "smartPowerToken"
+    ) ||
     "YhExai_BOe0fpBweQOeFruVsUg9PiwGi";
 
-  const settings = JSON.parse(
-    localStorage.getItem("smartPowerScheduleSettings") ||
-    "null"
-  );
+
+  const settings =
+    JSON.parse(
+      localStorage.getItem(
+        "smartPowerScheduleSettings"
+      ) ||
+      "null"
+    );
+
 
   if (settings) {
-    Object.keys(settings).forEach(key => {
-      if ($(key)) $(key).value = settings[key];
-    });
+
+    Object.keys(settings)
+      .forEach(
+        key => {
+
+          if ($(key)) {
+
+            $(key).value =
+              settings[key];
+
+          }
+
+        }
+      );
+
   }
 
-  const days = JSON.parse(
-    localStorage.getItem("smartPowerScheduleDays") ||
-    "[0,1,2,3,4,5,6]"
-  );
 
-  document.querySelectorAll("#days input").forEach(item => {
-    item.checked = days.includes(Number(item.value));
-  });
+  const days =
+    JSON.parse(
+      localStorage.getItem(
+        "smartPowerScheduleDays"
+      ) ||
+      "[0,1,2,3,4,5,6]"
+    );
 
-  if (localStorage.getItem("smartPowerScheduleEnabled") === "1") {
-    state.scheduleTimer = setInterval(runSchedule, 1000);
-    $("scheduleStatus").textContent = `Enabled: ${scheduleLabel()}`;
+
+  document
+    .querySelectorAll(
+      "#days input"
+    )
+    .forEach(
+      item => {
+
+        item.checked =
+          days.includes(
+            Number(item.value)
+          );
+
+      }
+    );
+
+
+  if (
+    localStorage.getItem(
+      "smartPowerScheduleEnabled"
+    ) === "1"
+  ) {
+
+    state.scheduleTimer =
+      setInterval(
+        runSchedule,
+        1000
+      );
+
+
+    $("scheduleStatus").textContent =
+      `Enabled: ${scheduleLabel()}`;
+
   }
+
 }
 
-$("connectBtn").addEventListener("click", connect);
-$("disconnectBtn").addEventListener("click", disconnect);
-$("refreshBtn").addEventListener("click", refreshDashboard);
-$("resetFaultBtn").addEventListener("click", resetFault);
-$("enableScheduleBtn").addEventListener("click", saveSchedule);
-$("disableScheduleBtn").addEventListener("click", disableSchedule);
 
-$("clearLogBtn").addEventListener("click", () => {
-  $("log").textContent = "Log cleared.";
-});
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
 
-channels.forEach(checkbox => {
-  checkbox.addEventListener("change", () => changeChannel(checkbox));
-});
+$("connectBtn")
+  .addEventListener(
+    "click",
+    connect
+  );
 
-window.addEventListener("load", () => {
-  restoreSettings();
-  connect();
-});
+
+$("disconnectBtn")
+  .addEventListener(
+    "click",
+    disconnect
+  );
+
+
+$("refreshBtn")
+  .addEventListener(
+    "click",
+    refreshDashboard
+  );
+
+
+$("resetFaultBtn")
+  .addEventListener(
+    "click",
+    resetFault
+  );
+
+
+$("enableScheduleBtn")
+  .addEventListener(
+    "click",
+    saveSchedule
+  );
+
+
+$("disableScheduleBtn")
+  .addEventListener(
+    "click",
+    disableSchedule
+  );
+
+
+$("clearLogBtn")
+  .addEventListener(
+    "click",
+    () => {
+
+      $("log").textContent =
+        "Log cleared.";
+
+    }
+  );
+
+
+/* =========================================================
+   CHANNEL EVENTS
+========================================================= */
+
+channels.forEach(
+  checkbox => {
+
+    checkbox.addEventListener(
+      "change",
+      () =>
+        changeChannel(
+          checkbox
+        )
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    restoreSettings();
+
+    connect();
+
+  }
+);
+
 </script>
+
 </body>
 </html>
